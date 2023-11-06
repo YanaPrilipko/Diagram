@@ -1,0 +1,406 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 15.3
+-- Dumped by pg_dump version 15.3
+
+-- Started on 2023-11-05 20:44:32
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 217 (class 1259 OID 38544)
+-- Name: customer; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.customer (
+    id integer NOT NULL,
+    lastname character varying(100) NOT NULL,
+    telefon character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.customer OWNER TO postgres;
+
+--
+-- TOC entry 216 (class 1259 OID 38543)
+-- Name: customer_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.customer_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.customer_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3368 (class 0 OID 0)
+-- Dependencies: 216
+-- Name: customer_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.customer_id_seq OWNED BY public.customer.id;
+
+
+--
+-- TOC entry 215 (class 1259 OID 38535)
+-- Name: house; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.house (
+    id integer NOT NULL,
+    quantity integer NOT NULL,
+    price integer NOT NULL,
+    description character varying(1000) NOT NULL
+);
+
+
+ALTER TABLE public.house OWNER TO postgres;
+
+--
+-- TOC entry 214 (class 1259 OID 38534)
+-- Name: hause_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.hause_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.hause_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3369 (class 0 OID 0)
+-- Dependencies: 214
+-- Name: hause_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.hause_id_seq OWNED BY public.house.id;
+
+
+--
+-- TOC entry 219 (class 1259 OID 38553)
+-- Name: orders; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.orders (
+    id integer NOT NULL,
+    dataofarrival date,
+    dataofdeparture date,
+    hauseid integer NOT NULL,
+    customerid integer NOT NULL,
+    description character varying(1000) NOT NULL
+);
+
+
+ALTER TABLE public.orders OWNER TO postgres;
+
+--
+-- TOC entry 218 (class 1259 OID 38552)
+-- Name: orders_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.orders_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.orders_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3370 (class 0 OID 0)
+-- Dependencies: 218
+-- Name: orders_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.orders_id_seq OWNED BY public.orders.id;
+
+
+--
+-- TOC entry 221 (class 1259 OID 38567)
+-- Name: photo; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.photo (
+    id integer NOT NULL,
+    hauseid integer NOT NULL,
+    "Image" bytea[]
+);
+
+
+ALTER TABLE public.photo OWNER TO postgres;
+
+--
+-- TOC entry 220 (class 1259 OID 38566)
+-- Name: photo_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.photo_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.photo_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3371 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: photo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.photo_id_seq OWNED BY public.photo.id;
+
+
+--
+-- TOC entry 223 (class 1259 OID 38582)
+-- Name: role; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.role (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.role OWNER TO postgres;
+
+--
+-- TOC entry 222 (class 1259 OID 38581)
+-- Name: role_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.role_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.role_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3372 (class 0 OID 0)
+-- Dependencies: 222
+-- Name: role_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.role_id_seq OWNED BY public.role.id;
+
+
+--
+-- TOC entry 225 (class 1259 OID 38589)
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.users (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL,
+    email character varying(100) NOT NULL,
+    role_id integer NOT NULL
+);
+
+
+ALTER TABLE public.users OWNER TO postgres;
+
+--
+-- TOC entry 224 (class 1259 OID 38588)
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.users_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3373 (class 0 OID 0)
+-- Dependencies: 224
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
+
+
+--
+-- TOC entry 3199 (class 2604 OID 38547)
+-- Name: customer id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.customer ALTER COLUMN id SET DEFAULT nextval('public.customer_id_seq'::regclass);
+
+
+--
+-- TOC entry 3198 (class 2604 OID 38538)
+-- Name: house id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.house ALTER COLUMN id SET DEFAULT nextval('public.hause_id_seq'::regclass);
+
+
+--
+-- TOC entry 3200 (class 2604 OID 38556)
+-- Name: orders id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.orders ALTER COLUMN id SET DEFAULT nextval('public.orders_id_seq'::regclass);
+
+
+--
+-- TOC entry 3201 (class 2604 OID 38570)
+-- Name: photo id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.photo ALTER COLUMN id SET DEFAULT nextval('public.photo_id_seq'::regclass);
+
+
+--
+-- TOC entry 3202 (class 2604 OID 38585)
+-- Name: role id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.role ALTER COLUMN id SET DEFAULT nextval('public.role_id_seq'::regclass);
+
+
+--
+-- TOC entry 3203 (class 2604 OID 38592)
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- TOC entry 3207 (class 2606 OID 38551)
+-- Name: customer customer_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.customer
+    ADD CONSTRAINT customer_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3205 (class 2606 OID 38542)
+-- Name: house hause_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.house
+    ADD CONSTRAINT hause_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3209 (class 2606 OID 38560)
+-- Name: orders orders_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT orders_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3211 (class 2606 OID 38572)
+-- Name: photo photo_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.photo
+    ADD CONSTRAINT photo_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3213 (class 2606 OID 38587)
+-- Name: role role_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.role
+    ADD CONSTRAINT role_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3215 (class 2606 OID 38596)
+-- Name: users users_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_email_key UNIQUE (email);
+
+
+--
+-- TOC entry 3217 (class 2606 OID 38594)
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3218 (class 2606 OID 38561)
+-- Name: orders orders_customerid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT orders_customerid_fkey FOREIGN KEY (customerid) REFERENCES public.customer(id);
+
+
+--
+-- TOC entry 3219 (class 2606 OID 38573)
+-- Name: photo photo_hauseid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.photo
+    ADD CONSTRAINT photo_hauseid_fkey FOREIGN KEY (hauseid) REFERENCES public.house(id);
+
+
+--
+-- TOC entry 3220 (class 2606 OID 38597)
+-- Name: users users_role_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_role_id_fkey FOREIGN KEY (role_id) REFERENCES public.role(id);
+
+
+-- Completed on 2023-11-05 20:44:33
+
+--
+-- PostgreSQL database dump complete
+--
+
